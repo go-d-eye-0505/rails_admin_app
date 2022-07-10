@@ -1,0 +1,8 @@
+%h2 テストテスト
+
+%p.test_class
+  = 'ユーザー:' + @users.count.to_s + '人'
+%p.test_class
+  - @users.each do |user|
+    %p
+      = user['name']

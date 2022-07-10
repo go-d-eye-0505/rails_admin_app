@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  web:
+    build: .
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    networks:
+      - default
+      - rails_app_network
+    command: bundle exec rails s -p 3001 -b '0.0.0.0'
+  db:
+    platform: linux/x86_64
+    image: mysql:8.0
+    volumes:
+      - mysql_data:/var/lib/mysql/
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3307:3307"
+
+volumes:
+  mysql_data:
+
+networks:
+  rails_app_network:
+    external: true
